@@ -1,0 +1,44 @@
+{% extends 'index.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="card">
+   <div class="card-header">
+      <strong>Nuevo Post</strong>
+   </div>
+   <div class="card-body card-block">
+      <form method="Post">
+      
+         {% csrf_token %}
+         <div class="row form-group">
+           <div class="col col-md-3">{{form.nombre.label}}</div>
+           <div class="col-12 col-md-9">{{form.nombre}}</div>
+         </div>
+         <div class="row form-group">
+           <div class="col col-md-3">{{form.autor.label}}</div>
+           <div class="col-12 col-md-9">{{form.autor}}</div>
+         </div>
+         <div class="row form-group">
+            <div class="col col-md-3">{{form.contenido.label}}</div>
+            <div class="col-12 col-md-9">{{form.contenido}}</div>
+         </div>
+         <div class="row form-group">
+           <div class="col col-md-3">{{form.visible.label}}</div>
+           <div class="col-12 col-md-9">{{form.visible}}</div>
+         </div>
+         
+         <!--{{form.as_p}}-->
+         <input type="submit" value="enviar"> 
+         <input type="reset" value="cancelar"> 
+ 
+      </form> 
+
+   </div>
+
+</div> 
+
+   
+    
+
+{% endblock content %}
