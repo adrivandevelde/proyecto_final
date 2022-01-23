@@ -14,3 +14,11 @@ class Post(models.Model):
     
     def __str__(self):
         return (f"Post {self().nombre} autoria de {self().autor}")
+
+class Usuarios(models.Model):
+    username=models.CharField(max_length=30)
+    nombre_usuario= models.CharField(max_length=30)
+    apellido_usuario= models.CharField(max_length=30)
+    email= models.EmailField()
+    profesion = models.CharField(max_length=30)
+    edad= models.DecimalField(decimal_places= 0, max_digits= 3)

@@ -1,0 +1,52 @@
+{% extends 'index.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="card">
+   <div class="card-header">
+      <strong>Nuevo Usuario</strong>
+      <br>
+   </div>
+   <div class="card-body card-block">
+      <form method="Post">
+      
+         {% csrf_token %}
+         <div class="row form-group">
+           <div class="col col-md-3">{{form.username.label}}</div>
+           <div class="col-12 col-md-9">{{form.username}}</div>
+         </div>
+         <div class="row form-group">
+            <div class="col col-md-3">{{form.nombre_usuario.label}}</div>
+            <div class="col-12 col-md-9">{{form.nombre_usuario}}</div>
+         </div>   
+         <div class="row form-group">
+            <div class="col col-md-3">{{form.apellido_usuario.label}}</div>
+            <div class="col-12 col-md-9">{{form.apellido_usuario}}</div>
+         </div>
+         <div class="row form-group">
+            <div class="col col-md-3">{{form.email.label}}</div>
+            <div class="col-12 col-md-9">{{form.email}}</div>
+         </div>
+         <div class="row form-group">
+            <div class="col col-md-3">{{form.profesion.label}}</div>
+            <div class="col-12 col-md-9">{{form.profesion}}</div>
+         </div>
+         <div class="row form-group">
+            <div class="col col-md-3">{{form.edad.label}}</div>
+            <div class="col-12 col-md-9">{{form.edad}}</div>
+         </div>       
+         <!--{{form.as_p}}-->
+         <input type="submit" value="enviar"> 
+         <input type="reset" value="cancelar"> 
+ 
+      </form> 
+
+   </div>
+
+</div> 
+
+   
+    
+
+{% endblock content %}

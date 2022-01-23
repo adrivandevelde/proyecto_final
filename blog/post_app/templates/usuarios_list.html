@@ -1,0 +1,11 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+    <h3>Los usuarios actuales son:</h3>
+    {% for usuario in usuarios %}
+        <h4>{{ usuario.username }}</h4>
+    {% endfor %}
+
+
+{% endblock content %}
