@@ -23,7 +23,6 @@ class Post_listView(ListView):
     model = Post
     context_object_name = 'posts'
     template_name = 'post_list.html'
-    queryset = Post.objects.all()
     
 class Usuarios_listView(ListView):
     model= Usuarios
