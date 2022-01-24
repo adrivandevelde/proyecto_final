@@ -1,10 +1,12 @@
 
 from email import contentmanager
-from pyexpat import model
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic import DetailView
 from django.views.generic.list import ListView
+from django.db.models import Q
+from .models import Post
 
 
 
@@ -23,6 +25,28 @@ class Post_listView(ListView):
     model = Post
     context_object_name = 'posts'
     template_name = 'post_list.html'
+    
+class Post_sarch(ListView):
+    template_name =  'post_list.html' #se indica el template a utiliza 
+    #en este caso el queryset va a depender de lo que el snippets search nos mande en el atributo q
+    #queryset =  
+    
+
+    def get_queryset(self):#se hace la consulta        
+        filters = Q(nombre__icontains=self.query()) | Q(autor__icontains=self.query()) | Q(contenido__icontains=self.query())
+        return Post.objects.filter(filters)   
+
+    def query(self):#se obtiene el valor de q en el request
+        return self.request.GET.get('q')
+
+    def get_context_data(self, **kwargs): #sobre esctibo el metodo para obtener el contexto de la peticion
+        context = super().get_context_data(**kwargs)
+        context['query'] = self.query()
+        context['posts'] = context['post_list']
+        
+        return context
+    
+    
     
 class Usuarios_listView(ListView):
     model= Usuarios
