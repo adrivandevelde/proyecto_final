@@ -1,0 +1,11 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+    <h3>Los temas de los que hablamos son:</h3>
+        {% for tema in temas %}
+        <h4>{{ tema.categoria }}</h4>
+    {% endfor %}
+
+    <a href="{% url 'post_app:tema_add' %}" class="btn btn-primary btn-lg role="button">Nuevo tema</a> 
+{% endblock content %}

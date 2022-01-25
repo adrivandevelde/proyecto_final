@@ -2,7 +2,12 @@
 {% load static %}
 
 
+
 {% block content %}
+<div class="row">
+    {% include 'snippets/search.html' %}
+</div>
+<a href="{% url 'post_app:post_add' %}" class="btn btn-primary btn-lg role="button">Nuevo Post</a> 
     {% for post in posts  %}
         <div class="post-preview">
             <h2 class="post-title"> {{post.nombre}} </h2>
