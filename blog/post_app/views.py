@@ -6,15 +6,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic import DetailView
 from django.views.generic.list import ListView
 from django.db.models import Q
-<<<<<<< HEAD
-from .models import Post
-
-
-
-from post_app.models import Post, Usuarios
-=======
 from post_app.models import Post, Usuarios, Temas
->>>>>>> a0baf2e1fad321c6b5d18fe0a4b867900da9537d
 
 # Create your views here.
 
