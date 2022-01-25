@@ -6,11 +6,15 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic import DetailView
 from django.views.generic.list import ListView
 from django.db.models import Q
+<<<<<<< HEAD
 from .models import Post
 
 
 
 from post_app.models import Post, Usuarios
+=======
+from post_app.models import Post, Usuarios, Temas
+>>>>>>> a0baf2e1fad321c6b5d18fe0a4b867900da9537d
 
 # Create your views here.
 
@@ -57,3 +61,13 @@ class Usuarios_addView(CreateView):
     model= Usuarios
     fields= ['username', 'nombre_usuario','apellido_usuario', 'email', 'profesion', 'edad']
     success_url =  reverse_lazy('post_app:usuarios_list')
+
+class Temas_listView(ListView):
+    model= Temas
+    context_object_name= 'temas'
+    template_name= 'temas_list.html'
+
+class Temas_addView(CreateView):
+    model= Temas
+    fields= ['categoria', 'descripcion']
+    success_url =  reverse_lazy('post_app:temas_list')

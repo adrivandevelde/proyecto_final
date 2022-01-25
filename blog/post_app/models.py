@@ -22,3 +22,7 @@ class Usuarios(models.Model):
     email= models.EmailField()
     profesion = models.CharField(max_length=30)
     edad= models.DecimalField(decimal_places= 0, max_digits= 3)
+
+class Temas(models.Model):
+    categoria= models.CharField(max_length=30)
+    descripcion= models.CharField(max_length=30)
