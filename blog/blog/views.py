@@ -7,3 +7,7 @@ from django.shortcuts import render, redirect
 
 def index(request):
     return redirect('post_app:post_list')
+
+
+def about(request):
+    return render(request, 'about.html') 

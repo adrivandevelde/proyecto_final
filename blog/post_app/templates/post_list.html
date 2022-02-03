@@ -7,10 +7,16 @@
 <div class="row">
     {% include 'snippets/search.html' %}
 </div>
+
 <a href="{% url 'post_app:post_add' %}" class="btn btn-primary btn-lg role="button">Nuevo Post</a> 
     {% for post in posts  %}
         <div class="post-preview">
-            <h2 class="post-title"> {{post.nombre}} </h2>
+            <h2 class="post-title"> <a href="{% url 'post_app:detail'  post.pk %}"> {{post.nombre}} </a> </h2>
+            <div class="card">
+                <div class="card-body">
+                    {{post.contenido |truncatechars:50 }}
+                </div>
+              </div>
         
             <p class="post-meta">Postedo por  <a href="#">{{post.autor}}</a> {{post.fecha_publicacion}}</p>
         </div>

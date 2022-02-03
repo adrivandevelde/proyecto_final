@@ -1,4 +1,6 @@
 
+from curses import meta
+from fileinput import filename
 from django.db import models
 
 # Create your models here.
@@ -8,12 +10,30 @@ class Post(models.Model):
     nombre = models.CharField("Titulo", max_length=50, blank=False)
     autor = models.CharField("Autor", max_length=50, blank=False)
     contenido = models.TextField("Contenido", blank=True)
-    fecha_publicacion = models.DateTimeField("Fecha de Publicaión", auto_now_add=True)
+    fecha_publicacion = models.DateTimeField("Fecha de Publicación", auto_now_add=True)
     #fecha_ultima_modificacion = models.DateTimeField("Fecha de Publicaión", blank=True)
     visible = models.BooleanField()
+    #imagen = models.ImageField(upload_to='media', height_field=None, width_field=None, max_length=None)
     
     def __str__(self):
-        return (f"Post {self().nombre} autoria de {self().autor}")
+        return self.nombre
+    
+#Esta función me permite crear una sub carpeta dento de la estructira de archivs con el id de post    
+def post_image_paht(instance, filename):
+    return 'post_{0}/{1}'.format(instance.post.id, filename)
+    
+class Image_Post(models.Model):
+    post = models.ForeignKey("Post", verbose_name="Post", on_delete=models.CASCADE, related_name="imagenes")
+    img = models.ImageField("Imagenes", upload_to=post_image_paht)
+    
+    def __str__(self):
+        return str(self.post)
+    
+    class Meta:
+        verbose_name = "Imagenes Post"
+        
+        
+        
 
 class Usuarios(models.Model):
     username=models.CharField(max_length=30)

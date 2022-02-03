@@ -1,0 +1,59 @@
+{% extends 'index.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+<div class="post-preview">
+    <h2 class="post-title"> <a href="{% url 'post_app:detail'  post.pk %}"> {{post.nombre}} </a> </h2>
+    <div class="card">
+        <div class="card-body">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                {% if post.imagenes %}
+
+                    {% for ima in post.imagenes.all %}
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="{{ ima.img.url }}" width="140" height="140" class="d-block w-10" alt="{{ ima.img }}">
+                          </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No hay imagenes</p> 
+                {% endif %}
+            
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+              {{post.contenido}}
+        </div>
+      </div>
+
+    <p class="post-meta">Postedo por  <a href="#">{{post.autor}}</a> {{post.fecha_publicacion}}</p>
+
+
+    
+</div>
+
+<ul class="pager">
+    <li class="next">
+        <a href="{% url 'edit' post.id %}">Edit Post &rarr;</a>
+    </li>
+</ul>
+
+{% endblock %}
+
+
+
