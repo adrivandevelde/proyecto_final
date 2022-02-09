@@ -21,8 +21,8 @@
             <div class="col-12 col-md-9">{{form.descripcion}}</div>
          </div>     
          <!--{{form.as_p}}-->
-         <input type="submit" value="enviar"> 
-         <input type="reset" value="cancelar">
+         <input type="submit" value="enviar" class="btn btn-danger"> 
+         <a href="{% url 'post_app:temas_list' %}" class="btn btn-primary">Cancel</a>
  
       </form> 
 

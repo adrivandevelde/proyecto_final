@@ -4,8 +4,16 @@
 {% block content %}
     <h3>Los temas de los que hablamos son:</h3>
         {% for tema in temas %}
-        <h4>{{ tema.categoria }}</h4>
-    {% endfor %}
+        <div class="post-preview">
+            <h2 class="post-title"> <a href="{% url 'post_app:tema_detail'  tema.pk %}"> {{tema.categoria}} </a> </h2>
+            <div class="card">
+                <div class="card-body">
+                    {{tema.descripcion |truncatechars:50 }}
+                </div>
+              </div>
+        </div>
+            
+        {% endfor %}
 
     <a href="{% url 'post_app:tema_add' %}" class="btn btn-primary btn-lg role="button">Nuevo tema</a> 
 {% endblock content %}

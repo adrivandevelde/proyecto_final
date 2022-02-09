@@ -1,6 +1,7 @@
 
 from curses import meta
 from fileinput import filename
+from operator import truediv
 from django.db import models
 
 # Create your models here.
@@ -13,6 +14,7 @@ class Post(models.Model):
     fecha_publicacion = models.DateTimeField("Fecha de Publicación", auto_now_add=True)
     #fecha_ultima_modificacion = models.DateTimeField("Fecha de Publicaión", blank=True)
     visible = models.BooleanField()
+    tema = models.ForeignKey("Temas", verbose_name="Tema", on_delete=models.RESTRICT, related_name="tema", blank=True, null=True)
     #imagen = models.ImageField(upload_to='media', height_field=None, width_field=None, max_length=None)
     
     def __str__(self):
@@ -23,8 +25,8 @@ def post_image_paht(instance, filename):
     return 'post_{0}/{1}'.format(instance.post.id, filename)
     
 class Image_Post(models.Model):
-    post = models.ForeignKey("Post", verbose_name="Post", on_delete=models.CASCADE, related_name="imagenes")
-    img = models.ImageField("Imagenes", upload_to=post_image_paht)
+    post = models.ForeignKey("Post", verbose_name="Post", on_delete=models.RESTRICT, related_name="imagenes")
+    img = models.ImageField("Imagen", upload_to=post_image_paht)
     
     def __str__(self):
         return str(self.post)
@@ -46,3 +48,7 @@ class Usuarios(models.Model):
 class Temas(models.Model):
     categoria= models.CharField(max_length=30)
     descripcion= models.CharField(max_length=30)
+
+    
+    def __str__(self):
+        return self.categoria + ": " +self.descripcion

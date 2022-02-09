@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+<div class="post-preview">
+    <h2 class="post-title"> <a href="{% url 'post_app:tema_detail'  tema.pk %}"> {{tema.categoria}} </a> </h2>
+    <div class="card">
+        <div class="card-body">
+                        
+              {{tema.descripcion}}
+        </div>
+      </div>
+</div>
+<div class="row">
+  <div class="col-8">
+    <ul class="pager">
+      <li class="next" >
+          <a href="{% url 'post_app:tema_delete' tema.id %}" style= "background-color: red">Delete Tema </a>
+      </li>
+    </ul>
+  </div>
+  <div class="col-8">
+    <ul class="pager">
+      <li class="next">
+          <a href="{% url 'post_app:tema_update' tema.id %}">Edit Tema &rarr;</a>
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+
+
+{% endblock %}
+
+
+

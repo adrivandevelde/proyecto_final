@@ -18,13 +18,13 @@ from django.urls import path, include, re_path
 from django.views.static import serve
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import index,about
+from .views import index,About
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
-    path('about/', about, name='about'),
+    path('about/', About.as_view(), name='about'),
     path('post/', include('post_app.urls')),
 ]
 
