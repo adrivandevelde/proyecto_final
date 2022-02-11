@@ -1,9 +1,12 @@
 
 
 from dataclasses import fields
-from django.shortcuts import render
+from django.db.models.deletion import ProtectedError
 from django.urls import reverse_lazy
+from django.shortcuts import redirect
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic  import TemplateView
+from django.contrib import messages
 #se importa inlineformset_factory para hacer el alta de un post con img en el mismo formularia
 from django.forms.models import inlineformset_factory
 from django.views.generic import DetailView
@@ -146,7 +149,36 @@ class Tema_Update(UpdateView):
     model= Temas
     fields= ['categoria', 'descripcion']
     success_url =  reverse_lazy('post_app:temas_list')
+    
+class Error_delete(TemplateView):
+    template_name = "post_app/error_delete.html"
 
 class Tema_DeleteView(DeleteView):
     model = Temas
     success_url = reverse_lazy('post_app:temas_list')
+    
+    """def delete(self, request, *args, **kargs):
+       tema = self.get_object()
+       print(tema)
+       if tema.chidlren.count() > 0:
+           extra_context = "Error"
+           return redirect('tema_delete')
+       
+       return super().delete(request, *args, **kwargs)  
+"""
+    def delete(self, request, *args, **kwargs):
+        """
+        Call the delete() method on the fetched object and then redirect to the
+        success URL. If the object is protected, send an error message.
+        """
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+
+        try:
+            self.object.delete()
+        except ProtectedError:
+            messages.error(request,"No se puede borrar el tema ya que está siendo usado en otros Post")
+            print(messages)
+            return redirect('post_app:error_delete') # The url of the delete view (or whatever you want)
+
+        return HttpResponseRedirect(success_url)

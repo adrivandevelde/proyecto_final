@@ -14,7 +14,7 @@ class Post(models.Model):
     fecha_publicacion = models.DateTimeField("Fecha de Publicación", auto_now_add=True)
     #fecha_ultima_modificacion = models.DateTimeField("Fecha de Publicaión", blank=True)
     visible = models.BooleanField()
-    tema = models.ForeignKey("Temas", verbose_name="Tema", on_delete=models.RESTRICT, related_name="tema", blank=True, null=True)
+    tema = models.ForeignKey("Temas", verbose_name="Tema", on_delete=models.PROTECT, related_name="tema", blank=True, null=True)
     #imagen = models.ImageField(upload_to='media', height_field=None, width_field=None, max_length=None)
     
     def __str__(self):

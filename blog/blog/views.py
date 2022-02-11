@@ -11,3 +11,8 @@ def index(request):
 
 class About(TemplateView):
     template_name = "about.html"
+    
+    
+def error_404_view(request, exception):
+    data = {"name": "ThePythonDjango.com"}
+    return render(request,'error_404.html', data)
