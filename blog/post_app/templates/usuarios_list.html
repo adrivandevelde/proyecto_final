@@ -3,7 +3,7 @@
 
 {% block content %}
     <h3>Los usuarios actuales son:</h3>
-    <a href="{% url 'post_app:usuario_add' %}" class="btn btn-primary btn-lg role="button">Nuevo Usuario</a> 
+    <a href="{% url 'register' %}" class="btn btn-primary btn-lg role="button">Nuevo Usuario: registro</a> 
     {% for usuario in usuarios %}
         <h4>{{ usuario.username }}</h4>
     {% endfor %}

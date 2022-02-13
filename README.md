@@ -5,8 +5,8 @@ Proyecto Final del curso de python plataforma CoderHose Grupo D
 
 Navegabilidad
 
-el landing del site está definido por http://localhost:800/
-los cruds y listados seon accesibles a traves de links definidos en el site de manera intuitiva. 
+El landing del site está definido por http://localhost:800/
+los cruds y listados son accesibles a traves de links definidos en el site de manera intuitiva. 
 
 Avances
 

@@ -1,6 +1,3 @@
-
-
-from dataclasses import fields
 from django.db.models.deletion import ProtectedError
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
@@ -13,7 +10,9 @@ from django.views.generic import DetailView
 from django.views.generic.list import ListView
 from django.db.models import Q
 from django.http.response import HttpResponseRedirect
-from post_app.models import Post, Usuarios, Temas, Image_Post
+from post_app.models import Post, Temas, Image_Post
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 
 
 
@@ -121,14 +120,14 @@ class Post_sarch(ListView):
     
     
 class Usuarios_listView(ListView):
-    model= Usuarios
+    model= User
     context_object_name= 'usuarios'
     template_name= 'usuarios_list.html'
 
-class Usuarios_addView(CreateView):
+"""class Usuarios_addView(CreateView):
     model= Usuarios
     fields= ['username', 'nombre_usuario','apellido_usuario', 'email', 'profesion', 'edad']
-    success_url =  reverse_lazy('post_app:usuarios_list')
+    success_url =  reverse_lazy('post_app:usuarios_list')"""
 
 class Temas_listView(ListView):
     model= Temas

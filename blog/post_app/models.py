@@ -1,7 +1,4 @@
 
-from curses import meta
-from fileinput import filename
-from operator import truediv
 from django.db import models
 
 # Create your models here.
@@ -35,15 +32,14 @@ class Image_Post(models.Model):
         verbose_name = "Imagenes Post"
         
         
-        
-
-class Usuarios(models.Model):
+"""class Usuarios(models.Model):
     username=models.CharField(max_length=30)
     nombre_usuario= models.CharField(max_length=30)
     apellido_usuario= models.CharField(max_length=30)
     email= models.EmailField()
     profesion = models.CharField(max_length=30)
     edad= models.DecimalField(decimal_places= 0, max_digits= 3)
+"""
 
 class Temas(models.Model):
     categoria= models.CharField(max_length=30)

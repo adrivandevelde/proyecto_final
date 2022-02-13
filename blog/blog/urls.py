@@ -18,7 +18,8 @@ from django.urls import path, include, re_path
 from django.views.static import serve
 from django.conf import settings
 from django.conf.urls import handler404
-from .views import index,About
+from .views import index,About, login_request, register
+from django.contrib.auth.views import LogoutView
 
 
 urlpatterns = [
@@ -26,6 +27,10 @@ urlpatterns = [
     path('', index, name='index'),
     path('about/', About.as_view(), name='about'),
     path('post/', include('post_app.urls')),
+    path('login', login_request, name='login'),
+    path('register', register, name= 'register'),
+    path('logout', LogoutView.as_view(template_name='logout.html'), name='logout'),
+    
 ]
 
 #urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
