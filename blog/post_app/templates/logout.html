@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-<h3>Gracias por pasar!</h3>
-<a href="{% url 'login' %} ">Volver a entrar</a>
+{% extends 'index.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block content %}
+    <h3>Gracias por pasar!</h3>
+    
+{% endblock %}

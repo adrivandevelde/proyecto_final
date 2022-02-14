@@ -28,7 +28,9 @@ ImagenFormset = inlineformset_factory(
 class Post_addView(CreateView):
     model = Post
     #form_class = PostForm
-    fields = '__all__'
+    fields = ['nombre', 'contenido', 'visible', 'tema']
+    
+    
     
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
@@ -39,6 +41,8 @@ class Post_addView(CreateView):
         return data
     
     def form_valid(self, form):
+        owner = self.request.user
+        form.instance.autor = owner
         context = self.get_context_data()
         imagen = context["imagen"]
         self.object = form.save()
@@ -52,11 +56,9 @@ class Post_addView(CreateView):
         return reverse_lazy('post_app:post_list')
     
     
-
-    
-                
         
 class Post_listView(ListView):
+    
     model = Post
     context_object_name = 'posts'
     template_name = 'post_list.html'
@@ -124,10 +126,6 @@ class Usuarios_listView(ListView):
     context_object_name= 'usuarios'
     template_name= 'usuarios_list.html'
 
-"""class Usuarios_addView(CreateView):
-    model= Usuarios
-    fields= ['username', 'nombre_usuario','apellido_usuario', 'email', 'profesion', 'edad']
-    success_url =  reverse_lazy('post_app:usuarios_list')"""
 
 class Temas_listView(ListView):
     model= Temas

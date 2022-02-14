@@ -1,6 +1,9 @@
+
+from turtle import textinput
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.forms import EmailField, CharField, PasswordInput
+from django.forms import EmailField, CharField, PasswordInput, TextInput
+
 
 class UserRegisterForm(UserCreationForm):
     email= EmailField()
@@ -11,3 +14,4 @@ class UserRegisterForm(UserCreationForm):
         model= User
         fields= ['username', 'email', 'password1', 'password2']
         help_texts= {k: '' for k in fields}
+        

@@ -31,10 +31,10 @@ def login_request(request):
                 return redirect('post/')
             else:
                 return render(request, 'login.html', 
-                 {'form': form, 'error':'No es válido el usuario y/o la contraseña'})
+                {'form': form, 'error':'No es válido el usuario y/o la contraseña'})
 
         else:
-            return render(request, 'login.html', {'form': form})
+            return render(request, 'login.html', {'form': form, 'error':'No es válido el usuario y/o la contraseña'})
     else:
         form = AuthenticationForm()
         return render (request, 'login.html', {'form':form})
@@ -47,6 +47,9 @@ def register(request):
             username = form.cleaned_data['username']
             form.save()
             return HttpResponse(f'Usuario {username} creado correctamente!')
+        else:
+            return render(request, 'registro.html', {'form': form, 'error':'algunos campos tienen errores'})
+            
     else:
             form = UserRegisterForm()
     return render (request, 'registro.html', {'form': form})

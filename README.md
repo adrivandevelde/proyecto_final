@@ -28,4 +28,8 @@ Creacón del listado de Usuarios --> Adri
 Creación de Modelo, Vista, Url y form de Usuarios -> Adri
 Creación de Modelo, Vista, Url y form de Temas -> Adri
 Modificación de la navegación, agregado de Temas ->  Adri
+Redefinición Usuarios -> Adri
+Loginn -> Adri
+Logout -> Adri
+register -> Adri
 

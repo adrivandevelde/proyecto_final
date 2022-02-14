@@ -1,22 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'index.html' %}
+{% load static %}
 
+{% block content %}
+
+{% if error %}
+    <div class="row ">
+        <div class="col col-md-8">{{error}}</div>
+        
+    </div>
+
+{% endif %}
     <form action="" method="POST">
         {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-        <table>
-        <input type="submit" value="Iniciar sesión">
+        <div class="row form-group">
+            <div class="col col-md-3">{{form.username.label}}</div>
+            <div class="col-12 col-md-9">{{form.username}}</div>
+        </div>
+        <div class="row form-group">
+            <div class="col col-md-3">{{form.password.label}}</div>
+            <div class="col-12 col-md-9">{{form.password}}</div>
+        </div>
+        
+        <input type="submit" value="Iniciar sesión" class="btn btn-primary">
+        <a href="{% url 'register' %}" class="btn btn-secondary">Registrarse</a>
         </form>
 
-    <a href="{% url 'register' %} ">Registrarse</a>
+    
 
-</body>
-</html>
+{% endblock %}
