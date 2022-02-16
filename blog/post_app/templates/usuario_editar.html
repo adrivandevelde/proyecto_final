@@ -1,0 +1,50 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+
+{% if error %}
+{{error}}
+{% endif %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="row form-group">
+            <div class="col col-md-3">{{form.username.label}}</div>
+            <div class="col-12 col-md-9">{{form.username}}</div>
+        </div>
+        
+        <div class="row form-group">
+            <div class="col col-md-3">{{form.email.label}}</div>
+            <div class="col-12 col-md-9">{{form.email}}</div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col col-md-3">{{form.last_name.label}}</div>
+            <div class="col-12 col-md-9">{{form.last_name}}</div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col col-md-3">{{form.first_name.label}}</div>
+            <div class="col-12 col-md-9">{{form.first_name}}</div>
+        </div>
+
+        
+        <div class="row form-group">
+            <div class="col col-md-3">{{form.password1.label}}</div>
+            <div class="col-12 col-md-9">{{form.password1}}</div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col col-md-3">{{form.password2.label}}</div>
+            <div class="col-12 col-md-9">{{form.password2}}</div>
+        </div>
+        
+        
+        
+        <input type="submit" value="Guardar cambios" class="btn btn-primary">
+    <form>
+    
+{% endblock %}
+
+    
+
