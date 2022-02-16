@@ -14,8 +14,12 @@ class About(TemplateView):
     
     
 def error_404_view(request, exception):
-    data = {"name": "ThePythonDjango.com"}
+    data = {"name": "GrupoD"}
     return render(request,'error_404.html', data)
+
+def error_403_view(request, exception):
+    return render(request, 'error_403.html', {'exception': exception})
+    
 
 def login_request(request):
     if request.method == 'POST':
