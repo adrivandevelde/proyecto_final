@@ -46,23 +46,28 @@
 
     
 </div>
-<div class="row">
-  <div class="col-8">
-    <ul class="pager">
-      <li class="next" >
-          <a href="{% url 'post_app:delete' post.id %}" style= "background-color: red">Delete Post </a>
-      </li>
-    </ul>
-  </div>
-  <div class="col-8">
-    <ul class="pager">
-      <li class="next">
-          <a href="{% url 'post_app:update' post.id %}">Edit Post &rarr;</a>
-      </li>
-    </ul>
-  </div>
 
-</div>
+
+
+  
+  <div class="row">
+    <div class="col-8">
+      <ul class="pager">
+        <li class="next" >
+            <a href="{% url 'post_app:delete' post.id %}" role="button" class="btn btn-danger">Delete Post </a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-8">
+      <ul class="pager">
+        <li class="next">
+            <a href="{% url 'post_app:update' post.id %}" class="btn btn-primary">Edit Post &rarr;</a>
+        </li>
+      </ul>
+    </div>
+  </div>  
+
+
 
 
 
