@@ -3,24 +3,27 @@ from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic  import TemplateView
-from django.contrib import messages
-from django.contrib.auth.views import redirect_to_login
-#se importa inlineformset_factory para hacer el alta de un post con img en el mismo formularia
-from django.forms.models import inlineformset_factory
 from django.views.generic import DetailView
 from django.views.generic.list import ListView
+from django.contrib import messages
+from django.contrib.auth.views import redirect_to_login
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin, UserPassesTestMixin
+#se importa inlineformset_factory para hacer el alta de un post con img en el mismo formularia
+from django.forms.models import inlineformset_factory
 from django.db.models import Q
 from django.http.response import HttpResponseRedirect
 from post_app.models import Post, Temas, Image_Post
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
+
 
 
 from django.contrib.auth.models import User
 
 
 
-
+"""
+Se crea el formulario de Post junto a de imágenes
+"""
 ImagenFormset = inlineformset_factory(
     Post, Image_Post, fields=('img',)
 )
@@ -30,9 +33,7 @@ ImagenFormset = inlineformset_factory(
 
 class Post_addView(LoginRequiredMixin, CreateView):
     login_url = 'login'
-    #redirect_field_name = 'post/post_add'
     model = Post
-    #form_class = PostForm
     fields = ['nombre', 'contenido', 'visible', 'tema']
     
     
@@ -76,6 +77,19 @@ class Post_detailView(DetailView):
     
 
 class Post_Update(UserPassesTestMixin, UpdateView):
+    """
+    Post Update
+
+    Args:
+        UserPassesTestMixin (_type_): Mixim para generar el control de usuario
+        UpdateView (_type_):
+
+    Raises:
+        PermissionDenied: Si usuario no está logueado (lo redirige al login) o si no es el dueño del post (Mensaje de error)
+
+    Returns:
+        _type_: Edición del post
+    """
     model = Post
     login_url = 'login'
     raise_exception = False
@@ -85,18 +99,38 @@ class Post_Update(UserPassesTestMixin, UpdateView):
     
     
     def test_func(self):
+        """metodo incorporado en UserPassesTestMixin
+        se sobre escribe para hacer el control si el user es el credor del Post
+
+        Returns:
+            _type_: True / False
+        """
         elPost = Post.objects.get(pk=self.kwargs.get('pk'))
         return (True if self.request.user.id == elPost.autor.id else False)
     
     def handle_no_permission(self):
+        """metodo incorporado en UserPassesTestMixin
+        se sobre escribe para hacer el control si el user es el credor del Post
+
+        Raises:
+            PermissionDenied: si test_func devulve False Genera el error de Permiso denegado
+
+        Returns:
+            _type_: _description_
+        """
         if self.raise_exception or self.request.user.is_authenticated:
             raise PermissionDenied(self.get_permission_denied_message())
         
         return redirect_to_login(self.request.get_full_path(), self.get_login_url(), self.get_redirect_field_name())
         
-    
-     
+         
     def get_context_data(self, **kwargs):
+        """redefinición del método
+        necesaria para insertar las imágenes que envía el formulario de imágenes del inLineFormSets 
+
+        Returns:
+            _type_: _description_
+        """
         data = super().get_context_data(**kwargs)
         if self.request.POST:
             data["imagen"] = ImagenFormset(self.request.POST,self.request.FILES, instance=self.object)
@@ -119,10 +153,37 @@ class Post_Update(UserPassesTestMixin, UpdateView):
     def get_success_url(self):
         return reverse_lazy('post_app:post_list')
     
-class Post_DeleteView(DeleteView):
+class Post_DeleteView(UserPassesTestMixin, DeleteView):
     model = Post
+    login_url = 'login'
     success_url = reverse_lazy('post_app:post_list')
+    permission_denied_message = 'El Usuario Solo Puede Eliminar/Modificar sus Propios Post'
     
+        
+    def test_func(self):
+        """metodo incorporado en UserPassesTestMixin
+        se sobre escribe para hacer el control si el user es el credor del Post
+
+        Returns:
+            _type_: True / False
+        """
+        elPost = Post.objects.get(pk=self.kwargs.get('pk'))
+        return (True if self.request.user.id == elPost.autor.id else False)
+    
+    def handle_no_permission(self):
+        """metodo incorporado en UserPassesTestMixin
+        se sobre escribe para hacer el control si el user es el credor del Post
+
+        Raises:
+            PermissionDenied: si test_func devulve False Genera el error de Permiso denegado
+
+        Returns:
+            _type_: _description_
+        """
+        if self.raise_exception or self.request.user.is_authenticated:
+            raise PermissionDenied(self.get_permission_denied_message())
+        
+        return redirect_to_login(self.request.get_full_path(), self.get_login_url(), self.get_redirect_field_name())
      
     
 class Post_sarch(ListView):
@@ -168,17 +229,23 @@ class Tema_addView(CreateView):
     fields= ['categoria', 'descripcion']
     success_url =  reverse_lazy('post_app:temas_list')
 
-class Tema_Update(UpdateView):
+class Tema_Update(PermissionRequiredMixin, UpdateView):
     model= Temas
     fields= ['categoria', 'descripcion']
     success_url =  reverse_lazy('post_app:temas_list')
-    
+    permission_required = 'post_app.change_tema'
+    permission_denied_message = "Unicamente Administradores pueden Editar Temas"   
+
+
 class Error_delete(TemplateView):
     template_name = "post_app/error_delete.html"
 
-class Tema_DeleteView(DeleteView):
+
+class Tema_DeleteView(PermissionRequiredMixin, DeleteView):
     model = Temas
     success_url = reverse_lazy('post_app:temas_list')
+    permission_required = 'post_app.delete_tema'
+    permission_denied_message = "Unicamente Administradores pueden Borrar Temas"
     
    
     def delete(self, request, *args, **kwargs):
@@ -189,6 +256,6 @@ class Tema_DeleteView(DeleteView):
             self.object.delete()
         except ProtectedError:
             messages.error(request,"No se puede borrar el tema ya que está siendo usado en otros Post")
-            return redirect('post_app:error_delete') # The url of the delete view (or whatever you want)
+            return redirect('post_app:error_delete') 
 
         return HttpResponseRedirect(success_url)

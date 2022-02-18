@@ -9,35 +9,18 @@
     <h2 class="post-title"> <a href="{% url 'post_app:detail'  post.pk %}"> {{post.nombre}} </a> </h2>
     <div class="card">
         <div class="card-body">
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
-                {% if post.imagenes %}
-
-                    {% for ima in post.imagenes.all %}
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="{{ ima.img.url }}" width="140" height="140" class="d-block w-10" alt="{{ ima.img }}">
-                          </div>
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    <p>No hay imagenes</p> 
-                {% endif %}
-            
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Next</span>
-                </button>
+            {% if post.imagenes %}
+              <div class="row">
+                {% for ima in post.imagenes.all %}
+                  
+                <div class="col-xs-6 col-md-3">
+                    <img src="{{ ima.img.url }}" width="140" height="140" alt="{{ ima.img }}">
+                  </div>
+                {% endfor %}
+                
               </div>
-              {{post.contenido}}
+            {% endif %}
+            {{post.contenido}}
         </div>
       </div>
 
@@ -54,14 +37,14 @@
     <div class="col-8">
       <ul class="pager">
         <li class="next" >
-            <a href="{% url 'post_app:delete' post.id %}" role="button" class="btn btn-danger">Delete Post </a>
+            <a class="btn btn-danger" href="{% url 'post_app:delete' post.id %}" role="button" style="background-color: #c9302c !important">Delete Post&rarr; </a>
         </li>
       </ul>
     </div>
     <div class="col-8">
       <ul class="pager">
         <li class="next">
-            <a href="{% url 'post_app:update' post.id %}" class="btn btn-primary">Edit Post &rarr;</a>
+            <a href="{% url 'post_app:update' post.id %}" class="btn btn-success" role="button" style="background-color: #5cb85c !important">Edit Post&rarr;</a>
         </li>
       </ul>
     </div>

@@ -18,14 +18,14 @@
   <div class="col-8">
     <ul class="pager">
       <li class="next" >
-          <a href="{% url 'post_app:tema_delete' tema.id %}" style= "background-color: red">Delete Tema </a>
+          <a class="btn btn-danger" role="button" href="{% url 'post_app:tema_delete' tema.id %}"  style="background-color: #c9302c !important">Delete Tema&rarr;</a>
       </li>
     </ul>
   </div>
   <div class="col-8">
     <ul class="pager">
       <li class="next">
-          <a href="{% url 'post_app:tema_update' tema.id %}">Edit Tema &rarr;</a>
+          <a class="btn btn-success" role="button" href="{% url 'post_app:tema_update' tema.id %}" style="background-color: #5cb85c !important">Edit Tema &rarr;</a>
       </li>
     </ul>
   </div>
