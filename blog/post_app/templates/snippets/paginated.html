@@ -1,29 +1,19 @@
 
 
 {% if is_paginated %}
-  <nav aria-label="...">
-    <ul class="pagination">
-        {% if page_obj.has_previous %}
-            <li class="active"><a href="?page={{ page_obj.previous_page_number }}" aria-label="Previo"><span aria-hidden="true">&laquo;</span></a></li>
-        {% else %}
-            <li class="disabled"><a href="#" aria-label="Previo"><span aria-hidden="true">&laquo;</span>
-        {% endif %}
-
-        {% for i in paginator.page_range %}
-            <li class="{% if page_obj.number == i %} active {% endif %}"><a href="?page={{ i }}">{{i}}<span class="sr-only">{{i}}</span></a></li>
-        {% endfor %}
-      
-        {% if page_obj.has_next %}
-        <!--<li class="waves-effect"><a href="% url 'ordenanzas:Ordenzas-Page____'   %"><i class="material-icons"> >> </i></a></li>
-        '?page=' + {{page_obj.next_page_number}}-->
-            
-            <li><a href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-        {% else %}
-        <li class="disable"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-        
-      {% endif %}
-        
-      
+  {% if page_obj.has_previous %}
+    <ul class="pager">
+      <li class="previus">
+          <a href="?page={{ page_obj.previous_page_number }}">Newer Posts &larr;</a>
+      </li>
     </ul>
-  </nav>
   {% endif %}
+
+  {% if page_obj.has_next %}
+    <ul class="pager">
+      <li class="next">
+          <a href="?page={{ page_obj.next_page_number }}">Older Posts &rarr;</a>
+      </li>
+    </ul>
+  {% endif %}
+{% endif %}

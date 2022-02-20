@@ -65,9 +65,16 @@ class Post_addView(LoginRequiredMixin, CreateView):
     
         
 class Post_listView(ListView):
-    
+    """
+    Post List: lista los post Visibles ordenados por fecha de manera Descendente
+
+    Args:
+        ListView (_type_): _description_
+    """
     model = Post
     context_object_name = 'posts'
+    queryset = Post.objects.filter(visible=True).order_by('-fecha_publicacion')
+    allow_empty = True
     template_name = 'post_list.html'
     paginate_by = 5 
     
@@ -194,7 +201,7 @@ class Post_sarch(ListView):
     
 
     def get_queryset(self):#se hace la consulta        
-        filters = Q(nombre__icontains=self.query()) | Q(autor__autor__icontains=self.query()) | Q(contenido__icontains=self.query())
+        filters = Q(nombre__icontains=self.query()) | Q(autor__username__icontains=self.query()) | Q(contenido__icontains=self.query())
         return Post.objects.filter(filters)   
 
     def query(self):#se obtiene el valor de q en el request
@@ -213,6 +220,7 @@ class Usuarios_listView(ListView):
     model= User
     context_object_name= 'usuarios'
     template_name= 'usuarios_list.html'
+       
 
 
 class Temas_listView(ListView):
