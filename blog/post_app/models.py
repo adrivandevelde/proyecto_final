@@ -1,6 +1,7 @@
 
 from django.db import models
 from django.contrib.auth import get_user_model
+from ckeditor.fields import RichTextField
 
 User = get_user_model() 
 
@@ -11,7 +12,7 @@ class Post(models.Model):
     nombre = models.CharField("Titulo", max_length=50, blank=False)
     #autor = models.CharField("Autor", max_length=50, blank=False)
     autor = models.ForeignKey(User, verbose_name="Autor", on_delete=models.SET_NULL, related_name="nombreAutor", null=True, blank=True)
-    contenido = models.TextField("Contenido", blank=True)
+    contenido = RichTextField("Contenido", blank=True)
     fecha_publicacion = models.DateTimeField("Fecha de Publicación", auto_now_add=True)
     #fecha_ultima_modificacion = models.DateTimeField("Fecha de Publicaión", blank=True)
     visible = models.BooleanField()

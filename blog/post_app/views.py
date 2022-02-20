@@ -1,23 +1,24 @@
+from django.contrib import messages
+from django.contrib.auth.views import redirect_to_login
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import User
+from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 from django.db.models.deletion import ProtectedError
+#se importa inlineformset_factory para hacer el alta de un post con img en el mismo formularia
+from django.forms.models import inlineformset_factory
+from django.http.response import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic  import TemplateView
 from django.views.generic import DetailView
 from django.views.generic.list import ListView
-from django.contrib import messages
-from django.contrib.auth.views import redirect_to_login
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin, UserPassesTestMixin
-#se importa inlineformset_factory para hacer el alta de un post con img en el mismo formularia
-from django.forms.models import inlineformset_factory
-from django.db.models import Q
-from django.http.response import HttpResponseRedirect
+
 from post_app.models import Post, Temas, Image_Post
-from django.core.exceptions import PermissionDenied
 
 
 
-from django.contrib.auth.models import User
 
 
 
@@ -134,7 +135,7 @@ class Post_Update(UserPassesTestMixin, UpdateView):
          
     def get_context_data(self, **kwargs):
         """redefinición del método
-        necesaria para insertar las imágenes que envía el formulario de imágenes del inLineFormSets 
+        necesario para insertar las imágenes que envía el formulario de imágenes del inLineFormSets 
 
         Returns:
             _type_: _description_
@@ -183,7 +184,7 @@ class Post_DeleteView(UserPassesTestMixin, DeleteView):
         se sobre escribe para hacer el control si el user es el credor del Post
 
         Raises:
-            PermissionDenied: si test_func devulve False Genera el error de Permiso denegado
+            PermissionDenied: si test_func devuelve False Genera el error de Permiso denegado
 
         Returns:
             _type_: _description_
@@ -197,7 +198,6 @@ class Post_DeleteView(UserPassesTestMixin, DeleteView):
 class Post_sarch(ListView):
     template_name =  'post_list.html' #se indica el template a utiliza 
     #en este caso el queryset va a depender de lo que el snippets search nos mande en el atributo q
-    #queryset =  
     
 
     def get_queryset(self):#se hace la consulta        
@@ -222,21 +222,25 @@ class Usuarios_listView(ListView):
     template_name= 'usuarios_list.html'
        
 
-
 class Temas_listView(ListView):
     model= Temas
     context_object_name= 'temas'
     template_name= 'temas_list.html'
     
+
 class Tema_detailView(DetailView):
     model = Temas
     context_object_name = 'tema'
     template_name = 'post_app/tema_detail.html'
 
-class Tema_addView(CreateView):
+
+class Tema_addView(PermissionRequiredMixin, CreateView):
     model= Temas
     fields= ['categoria', 'descripcion']
     success_url =  reverse_lazy('post_app:temas_list')
+    permission_required = 'post_app.add_tema'
+    permission_denied_message = "Unicamente Administradores pueden Editar Temas"
+
 
 class Tema_Update(PermissionRequiredMixin, UpdateView):
     model= Temas
@@ -268,3 +272,5 @@ class Tema_DeleteView(PermissionRequiredMixin, DeleteView):
             return redirect('post_app:error_delete') 
 
         return HttpResponseRedirect(success_url)
+    
+    

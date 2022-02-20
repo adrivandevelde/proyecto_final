@@ -25,6 +25,7 @@ urlpatterns = [
     path("tema/error/", Error_delete.as_view(), name="error_delete"),
     path('search', Post_sarch.as_view(), name="search"),
     
+    
 ]
 
 

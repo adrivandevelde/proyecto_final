@@ -11,6 +11,7 @@
       <form method="Post" enctype="multipart/form-data" >
       
          {% csrf_token %}
+         {{ form.media }}
          
          <div class="row form-group">
             <div class="col col-md-3">{{form.nombre.label}}</div>
@@ -24,7 +25,7 @@
          
          <div class="row form-group">
             <div class="col col-md-3">{{form.contenido.label}}</div>
-            <div class="col-12 col-md-9">{{form.contenido}}</div>
+            <div class="col-12 col-md-9">{{form.contenido | safe}}</div>
          </div>
          
          <div class="row form-group">
