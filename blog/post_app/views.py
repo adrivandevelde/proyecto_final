@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.views import redirect_to_login
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.auth.models import User
+from user.models import User
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.db.models.deletion import ProtectedError

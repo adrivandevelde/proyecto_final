@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'post_app',
     'ckeditor',
+    'user'
 ]
 
 MIDDLEWARE = [
@@ -145,3 +146,6 @@ EMAIL_HOST_USER = 'agsbenitez@gmail.com' # new
 EMAIL_HOST_PASSWORD = '********' # new
 EMAIL_PORT = 587 # new
 EMAIL_USE_TLS = True # new
+
+AUTH_USER_MODEL= 'user.User'
+LOGIN_URL= 'login'

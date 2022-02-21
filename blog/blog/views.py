@@ -6,7 +6,12 @@ from django.contrib.auth import login, authenticate
 from blog.forms import UserRegisterForm, UserEditionForm
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
+
+from user.models import User
 from .forms import ContactForm
+from django.contrib.auth.mixins import UserPassesTestMixin
+from django.views.generic.edit import UpdateView
+from django.urls import reverse_lazy
 
 def index(request):
     return redirect('post_app:post_list')
@@ -78,6 +83,13 @@ def editar_perfil(request):
         formulario= UserEditionForm({'email': usuario.email})
     return render (request, 'usuario_editar.html', {'form': formulario})
 
+""" class Editar_usuario(UserPassesTestMixin, UpdateView):
+    model = User
+    login_url = 'login'
+    raise_exception = False
+    permission_denied_message = 'El Usuario Solo Puede Eliminar/Modificar sus propios datos'
+    success_url = reverse_lazy('usuarios_list')
+    fields = ['email', 'password1', 'first_name','last_name', 'web_personal'] """
 
 
 def contactView(request):
