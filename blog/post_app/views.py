@@ -273,4 +273,7 @@ class Tema_DeleteView(PermissionRequiredMixin, DeleteView):
 
         return HttpResponseRedirect(success_url)
     
-    
+class User_detailView(DetailView):
+    model = User
+    context_object_name = 'user'
+    template_name = 'post_app/user_detail.html'   

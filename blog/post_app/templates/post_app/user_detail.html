@@ -1,0 +1,30 @@
+{% extends 'index.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="post-preview">
+   <h2 class="post-title"> <a href="{% url 'post_app:user_detail'  user.pk %}"> {{user.username}} </a> </h2>
+   <div class="card">
+       <div class="card-body">
+                       
+         <h4>{{ user.first_name }} {{ user.last_name }}</h4>
+             
+       </div>
+     </div>
+</div>
+<div class="row">
+ <div class="col-8">
+   <ul class="pager">
+     <li class="next" >
+         <a class="btn btn-danger" role="button" href="{% url 'user_edit' user.id %}"  style="background-color: black !important">Editar Usuario&rarr;</a>
+     </li>
+   </ul>
+ </div>
+
+
+</div>
+
+
+
+{% endblock %}

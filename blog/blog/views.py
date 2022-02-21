@@ -5,7 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from blog.forms import UserRegisterForm, UserEditionForm
 from django.views.generic import TemplateView
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
 
 from user.models import User
 from .forms import ContactForm
@@ -66,7 +66,23 @@ def register(request):
             form = UserRegisterForm()
     return render (request, 'registro.html', {'form': form})
 
-@login_required
+def user_test(user):
+    """summary
+
+    Args:
+        user (type): test para validar que el usuario logueado pueda editar solo su usario
+
+    Returns:
+        type: description
+    """
+    eluser = User.objects.get(pk=self.kwargs.get('pk'))
+    if eluser.is_superuser:
+        return True
+    else:
+        return (True if self.request.user.id == eluser.autor.id else False)
+
+
+@user_passes_test(user_test)
 def editar_perfil(request):
     usuario= request.user
     if request.method == 'POST':
@@ -83,13 +99,6 @@ def editar_perfil(request):
         formulario= UserEditionForm({'email': usuario.email})
     return render (request, 'usuario_editar.html', {'form': formulario})
 
-""" class Editar_usuario(UserPassesTestMixin, UpdateView):
-    model = User
-    login_url = 'login'
-    raise_exception = False
-    permission_denied_message = 'El Usuario Solo Puede Eliminar/Modificar sus propios datos'
-    success_url = reverse_lazy('usuarios_list')
-    fields = ['email', 'password1', 'first_name','last_name', 'web_personal'] """
 
 
 def contactView(request):
