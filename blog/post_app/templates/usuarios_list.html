@@ -5,7 +5,7 @@
     <h3>Los usuarios actuales son:</h3>
     
     {% for usuario in usuarios %}
-        <h4>{{ usuario.username }}</h4>
+        <h4> <a href="{% url 'user_detail' %}" >{{ usuario.username }}</a></h4>
 
     <a href="{% url 'register' %}" class="btn btn-primary btn-lg role="button">Nuevo Usuario: registro</a>    
     {% endfor %}

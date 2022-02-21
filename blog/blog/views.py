@@ -5,7 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from blog.forms import UserRegisterForm, UserEditionForm
 from django.views.generic import TemplateView
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 from user.models import User
 from .forms import ContactForm
@@ -66,7 +66,23 @@ def register(request):
             form = UserRegisterForm()
     return render (request, 'registro.html', {'form': form})
 
-@login_required
+def user_test(user):
+    """_summary_
+
+    Args:
+        user (_type_): test para validar que el usuario logueado pueda editar solo su usario
+
+    Returns:
+        _type_: _description_
+    """
+    eluser = User.objects.get(pk=self.kwargs.get('pk'))
+    if eluser.is_superuser:
+        return True
+    else:
+        return (True if self.request.user.id == eluser.autor.id else False)
+        
+
+@user_passes_test(user_test)
 def editar_perfil(request):
     usuario= request.user
     if request.method == 'POST':
