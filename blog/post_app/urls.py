@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path,re_path
 
 from post_app.views import Post_Update, Post_addView, Post_DeleteView, Post_listView, Post_detailView, Post_sarch, Usuarios_listView, Temas_listView, Tema_addView, Tema_Update
-from post_app.views import Tema_detailView, Tema_DeleteView, Error_delete
+from post_app.views import Tema_detailView, Tema_DeleteView, Error_delete, User_detailView
 
 from django.conf.urls.static import static
 #
@@ -24,6 +24,7 @@ urlpatterns = [
     path("tema/delete/<pk>", Tema_DeleteView.as_view(), name="tema_delete"),
     path("tema/error/", Error_delete.as_view(), name="error_delete"),
     path('search', Post_sarch.as_view(), name="search"),
+    path("user/detail/<pk>", User_detailView.as_view(), name="user_detail"),
     
     
 ]

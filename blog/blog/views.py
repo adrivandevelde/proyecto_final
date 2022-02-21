@@ -3,13 +3,15 @@ from django.shortcuts import render, redirect
 from django.core.mail import send_mail, BadHeaderError
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
+from django.core.exceptions import PermissionDenied
 from blog.forms import UserRegisterForm, UserEditionForm
 from django.views.generic import TemplateView
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import user_passes_test
 
 from user.models import User
 from .forms import ContactForm
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.views import PasswordChangeView
 from django.views.generic.edit import UpdateView
 from django.urls import reverse_lazy
 
@@ -66,21 +68,22 @@ def register(request):
             form = UserRegisterForm()
     return render (request, 'registro.html', {'form': form})
 
-def user_test(user):
-    """_summary_
+"""
+def user_test(request):
+    summary
 
     Args:
-        user (_type_): test para validar que el usuario logueado pueda editar solo su usario
+        user (type): test para validar que el usuario logueado pueda editar solo su usario
 
     Returns:
-        _type_: _description_
-    """
-    eluser = User.objects.get(pk=self.kwargs.get('pk'))
+        type: description
+    
+    print(request)
+    eluser = User.objects.get(pk=request.kwargs.get('pk'))
     if eluser.is_superuser:
         return True
     else:
         return (True if self.request.user.id == eluser.autor.id else False)
-        
 
 @user_passes_test(user_test)
 def editar_perfil(request):
@@ -98,15 +101,40 @@ def editar_perfil(request):
     else:
         formulario= UserEditionForm({'email': usuario.email})
     return render (request, 'usuario_editar.html', {'form': formulario})
-
-""" class Editar_usuario(UserPassesTestMixin, UpdateView):
+"""
+class editar_perfil(UserPassesTestMixin, UpdateView):
     model = User
-    login_url = 'login'
-    raise_exception = False
-    permission_denied_message = 'El Usuario Solo Puede Eliminar/Modificar sus propios datos'
-    success_url = reverse_lazy('usuarios_list')
-    fields = ['email', 'password1', 'first_name','last_name', 'web_personal'] """
+    form_class = UserEditionForm
+    template_name = 'usuario_editar.html' 
+    success_url =  reverse_lazy('post_app:usuarios_list')
+    permission_required = 'post_app.change_user'
+    permission_denied_message = "Unicamente Administradores pueden Editar Usuarios"
+    
+    
+    def test_func(self):
+        """metodo incorporado en UserPassesTestMixin
+        se sobre escribe para hacer el control si el user es el credor del Post
 
+        Returns:
+            _type_: True / False
+        """
+        eluser = User.objects.get(pk=self.kwargs.get('pk'))
+        return (True if self.request.user.id == eluser.id else False)
+    
+    def handle_no_permission(self):
+        """metodo incorporado en UserPassesTestMixin
+        se sobre escribe para hacer el control si el user es el credor del Post
+
+        Raises:
+            PermissionDenied: si test_func devulve False Genera el error de Permiso denegado
+
+        Returns:
+            _type_: _description_
+        """
+        if self.raise_exception or self.request.user.is_authenticated:
+            raise PermissionDenied(self.get_permission_denied_message())
+        
+        return redirect_to_login(self.request.get_full_path(), self.get_login_url(), self.get_redirect_field_name())
 
 def contactView(request):
     if request.method == 'GET':
