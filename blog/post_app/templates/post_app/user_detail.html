@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="post-preview">
-   <h2 class="post-title"> <a href="{% url 'post_app:user_detail'  user.pk %}"> {{user.username}} </a> </h2>
+   <h2 class="post-title"> <a href="{% url 'user_detail'  user.pk %}"> {{user.username}} </a> </h2>
    <div class="card">
        <div class="card-body">
                        

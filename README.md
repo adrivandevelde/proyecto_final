@@ -15,21 +15,22 @@ Creación del modelo Post --> Ariel Benitez
 Creación de alta de post mediante la url /add --> Ariel Benitez
 Creación del listado de Post mediante un langing  --> Ariel Benitez
 Creación Formulario de Búsqueda en el Listado de Post --> Ariel Benitez/n
-Se podrán realizar búsquedas por titlo de post, usuario de post y por texto contenido en el cuerpo del Post
-Implemnetación de navagabilidad Básica Mediante links y Botones --> Ariel Benitez
+Se podrán realizar búsquedas por titulo de post, usuario de post y por texto contenido en el cuerpo del Post
+Implementación de navagabilidad Básica Mediante links y Botones --> Ariel Benitez
 Re definición de modelos con relaciones -->Ariel
 CRUD Post --> Ariel
 CRUD Temas --> Ariel
+Implementación CkEditor--> Ariel
+Formulario de Contacto-->Ariel
 
 Craeción del repositorio --> Adri
 Creación del modelo y formulario Usuarios --> Adri
 Creacón del listado de Usuarios --> Adri
-
 Creación de Modelo, Vista, Url y form de Usuarios -> Adri
 Creación de Modelo, Vista, Url y form de Temas -> Adri
 Modificación de la navegación, agregado de Temas ->  Adri
 Redefinición Usuarios -> Adri
-Loginn -> Adri
-Logout -> Adri
-register -> Adri
-
+Loginn --> Adri
+Logout --> Adri
+register --> Adri
+Perfil de Usuario --> Adri

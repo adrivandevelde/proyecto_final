@@ -18,7 +18,7 @@ from django.urls import path, include, re_path
 from django.views.static import serve
 from django.conf import settings
 from django.conf.urls import handler404, handler403
-from .views import editar_perfil, index,About, login_request, register, error_403_view, editar_perfil, contactView, successView
+from .views import editar_perfil, index, About, login_request, register, error_403_view, editar_perfil, contactView, successView, User_detailView, Usuarios_listView
 from django.contrib.auth.views import LogoutView
 
 
@@ -31,11 +31,12 @@ urlpatterns = [
     path('login', login_request, name='login'),
     path('register', register, name= 'register'),
     path('logout', LogoutView.as_view(template_name='logout.html'), name='logout'),
-    path('user_edit/<pk>', editar_perfil.as_view(), name= 'user_edit'),
+    path('usararios/edit/<pk>', editar_perfil.as_view(), name= 'user_edit'),
+    path("userios/detail/<pk>", User_detailView.as_view(), name="user_detail"),
+    path('usuarios/lista', Usuarios_listView.as_view(), name="usuarios_list"),
     path("contact/", contactView, name="contact"),
     path('success/', successView.as_view(), name='success'),
-    
-       
+           
 ]
 
 urlpatterns += [

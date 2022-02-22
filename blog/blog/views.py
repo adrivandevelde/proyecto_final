@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail, BadHeaderError
 from django.contrib.auth.forms import AuthenticationForm
@@ -11,8 +11,9 @@ from django.contrib.auth.decorators import user_passes_test
 from user.models import User
 from .forms import ContactForm
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django.contrib.auth.views import PasswordChangeView
+from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView
+from django.views.generic import DetailView
 from django.urls import reverse_lazy
 
 def index(request):
@@ -135,6 +136,16 @@ class editar_perfil(UserPassesTestMixin, UpdateView):
             raise PermissionDenied(self.get_permission_denied_message())
         
         return redirect_to_login(self.request.get_full_path(), self.get_login_url(), self.get_redirect_field_name())
+
+class User_detailView(DetailView):
+    model = User
+    context_object_name = 'user'
+    template_name = 'post_app/user_detail.html'
+    
+class Usuarios_listView(ListView):
+    model= User
+    context_object_name= 'usuarios'
+    template_name= 'usuarios_list.html'
 
 def contactView(request):
     if request.method == 'GET':

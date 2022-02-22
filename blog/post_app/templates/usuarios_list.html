@@ -5,7 +5,7 @@
     <h3>Los usuarios actuales son:</h3>
     
     {% for usuario in usuarios %}
-        <h4 class="post-title"> <a href="{% url 'post_app:user_detail'  usuario.pk %}"> {{usuario.username}} </a> </h4>
+        <h4 class="post-title"> <a href="{% url 'user_detail'  usuario.pk %}"> {{usuario.username}} </a> </h4>
 
 
     {% endfor %}

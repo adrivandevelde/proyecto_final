@@ -122,6 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/static/'
 
 
 STATICFILES_DIRS = (
@@ -138,11 +139,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-
+#configurar alguna cuenta de correo de gmail para que sean funcional la el envio de correos
+#la cuena debe tener hablitado al opciones app menos seguras para validar al usuario
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' # new
-DEFAULT_FROM_EMAIL = 'agsbenitez@gmail.com'
+DEFAULT_FROM_EMAIL = 'unacuenta@gmail.com'
 EMAIL_HOST = 'smtp.gmail.com' # new
-EMAIL_HOST_USER = 'agsbenitez@gmail.com' # new
+EMAIL_HOST_USER = 'unacuenta@gmail.com' # new
 EMAIL_HOST_PASSWORD = '********' # new
 EMAIL_PORT = 587 # new
 EMAIL_USE_TLS = True # new

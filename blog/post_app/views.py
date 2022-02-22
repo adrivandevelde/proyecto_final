@@ -19,9 +19,6 @@ from post_app.models import Post, Temas, Image_Post
 
 
 
-
-
-
 """
 Se crea el formulario de Post junto a de imágenes
 """
@@ -214,12 +211,6 @@ class Post_sarch(ListView):
         
         return context
     
-    
-    
-class Usuarios_listView(ListView):
-    model= User
-    context_object_name= 'usuarios'
-    template_name= 'usuarios_list.html'
        
 
 class Temas_listView(ListView):
@@ -238,15 +229,15 @@ class Tema_addView(PermissionRequiredMixin, CreateView):
     model= Temas
     fields= ['categoria', 'descripcion']
     success_url =  reverse_lazy('post_app:temas_list')
-    permission_required = 'post_app.add_tema'
-    permission_denied_message = "Unicamente Administradores pueden Editar Temas"
+    permission_required = 'temas.add_choice'
+    permission_denied_message = "El usuario no tiene Permiso para crear Temas, contactese con el Admin"
 
 
 class Tema_Update(PermissionRequiredMixin, UpdateView):
     model= Temas
     fields= ['categoria', 'descripcion']
     success_url =  reverse_lazy('post_app:temas_list')
-    permission_required = 'post_app.change_tema'
+    permission_required = 'temas.change_choice'
     permission_denied_message = "Unicamente Administradores pueden Editar Temas"   
 
 
@@ -257,7 +248,7 @@ class Error_delete(TemplateView):
 class Tema_DeleteView(PermissionRequiredMixin, DeleteView):
     model = Temas
     success_url = reverse_lazy('post_app:temas_list')
-    permission_required = 'post_app.delete_tema'
+    permission_required = 'temas.delete_choice'
     permission_denied_message = "Unicamente Administradores pueden Borrar Temas"
     
    
@@ -273,7 +264,3 @@ class Tema_DeleteView(PermissionRequiredMixin, DeleteView):
 
         return HttpResponseRedirect(success_url)
     
-class User_detailView(DetailView):
-    model = User
-    context_object_name = 'user'
-    template_name = 'post_app/user_detail.html'   
