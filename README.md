@@ -1,7 +1,10 @@
 # proyecto_final
 
 
-Proyecto Final del curso de python plataforma CoderHose Grupo D 
+Proyecto Final del curso de python plataforma CoderHose Grupo D
+Integrantes:
+Ariel Benitez
+Adriana Vandevelde
 
 Avances
 
@@ -17,9 +20,10 @@ Craeción del repositorio --> Adri
 Creación del modelo y formulario Usuarios --> Adri
 Creación del listado de Usuarios --> Adri
 
-Creación de Modelo, Vista, Url y form de Usuarios -> Adri
-Creación de Modelo, Vista, Url y form de Temas -> Adri
+Creación de Modelo, Vista, Url y form de Usuarios y Temas -> Adri
 Modificación de la navegación, agregado de Temas ->  Adri
+
+Crud, administración de permisos, about, sección Contáctenos -> Ariel
 
 Creación de app User, heredada de modelo AbstracUser, para agregar campo web_personal ->Adri
 Creación de register, login, logout, edición de usuario mediante def (luego transformada a class por Ariel para aplicar mixin)-> Adri
