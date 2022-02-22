@@ -28,3 +28,8 @@ Crud, administración de permisos, about, sección Contáctenos -> Ariel
 Creación de app User, heredada de modelo AbstracUser, para agregar campo web_personal ->Adri
 Creación de register, login, logout, edición de usuario mediante def (luego transformada a class por Ariel para aplicar mixin)-> Adri
 
+Vídeo explicativo -> Ariel
+
+Link al vídeo explicativo: https://www.youtube.com/watch?v=hhz9biln2r0
+
+(problemas en el último push con los cambios menores en detalle, zip a disposición).
